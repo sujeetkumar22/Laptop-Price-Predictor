@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price AI | Laptop Predictor</title>
+    <!-- Google Fonts: Inter for UI, Playfair Display for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo">Price AI</div>
+            <div class="nav-links">
+                <a href="#predict" class="active">Predict</a>
+                <a href="#trends">Trends</a>
+                <a href="#compare">Compare</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="profile-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            <button class="btn-primary">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Predict the Future<br>of <span class="gradient-text">Tech Pricing</span></h1>
+        <p>Leverage neural networks to forecast laptop depreciation and market fluctuations with 99.4% precision. Stop guessing, start knowing.</p>
+        <div class="hero-buttons">
+            <a href="#predict" class="btn-outline">Start Predicting</a>
+            <a href="#trends" class="btn-text">View Live Trends <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"></path><path d="M17 6h6v6"></path></svg></a>
+        </div>
+    </section>
+
+    <!-- Prediction App Section (Moved Above How it Works) -->
+    <section class="prediction-section" id="predict">
+        <div class="app-container">
+            <!-- Left Pane: Configuration Form -->
+            <div class="config-pane">
+                <h2>Laptop Price Predictor</h2>
+                <p class="subtitle">Configure your hardware specifications to receive a high-precision market valuation.</p>
+                
+                <div id="loading-state" class="app-loader">
+                    <div class="spinner"></div>
+                    <p>Connecting to neural network...</p>
+                </div>
+
+                <form id="prediction-form" class="hidden">
+                    <div class="form-grid-2col">
+                        <div class="input-group">
+                            <label for="Company">BRAND</label>
+                            <select id="Company" name="Company" required></select>
+                        </div>
+                        <div class="input-group">
+                            <label for="Cpu_brand">PROCESSOR (CPU)</label>
+                            <select id="Cpu_brand" name="Cpu_brand" required></select>
+                        </div>
+                    </div>
+
+                    <div class="input-group mt-2">
+                        <label for="RAM">MEMORY (RAM)</label>
+                        <select id="RAM" name="RAM" required></select>
+                    </div>
+
+                    <div class="form-grid-2col mt-2">
+                        <div class="input-group">
+                            <label for="SSD">STORAGE (SSD)</label>
+                            <select id="SSD" name="SSD" required></select>
+                        </div>
+                        <div class="input-group">
+                            <label for="HDD">STORAGE (HDD)</label>
+                            <select id="HDD" name="HDD" required></select>
+                        </div>
+                    </div>
+
+                    <div class="input-group mt-2">
+                        <label for="Gpu_brand">GRAPHICS (GPU)</label>
+                        <select id="Gpu_brand" name="Gpu_brand" required></select>
+                    </div>
+
+                    <div class="advanced-specs mt-2">
+                        <details>
+                            <summary>Advanced Display & OS Specs</summary>
+                            <div class="form-grid-2col mt-2">
+                                <div class="input-group">
+                                    <label for="TypeName">TYPE</label>
+                                    <select id="TypeName" name="TypeName" required></select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="os">OS</label>
+                                    <select id="os" name="os" required></select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="Weight">WEIGHT (KG)</label>
+                                    <input type="number" step="0.01" id="Weight" name="Weight" value="1.5" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="ScreenSize">SCREEN (INCHES)</label>
+                                    <input type="number" step="0.1" id="ScreenSize" name="ScreenSize" value="13.0" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="Resolution">RESOLUTION</label>
+                                    <select id="Resolution" name="Resolution" required></select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="Touchscreen">TOUCHSCREEN</label>
+                                    <select id="Touchscreen" name="Touchscreen" required></select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="IPS">IPS DISPLAY</label>
+                                    <select id="IPS" name="IPS" required></select>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+
+                    <button type="submit" id="predict-btn" class="btn-primary mt-4 full-width">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        <span>CALCULATE PRICE</span>
+                        <div class="btn-spinner hidden"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Pane: Result -->
+            <div class="result-pane">
+                <div class="result-header">
+                    <span class="badge">LIVE ESTIMATE</span>
+                    <span class="updated-text">Updated just now</span>
+                </div>
+                
+                <div class="value-section">
+                    <p class="label">PREDICTED MARKET VALUE</p>
+                    <h2 id="predicted-price">₹--</h2>
+                    <p class="confidence"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"></path><path d="M17 6h6v6"></path></svg> High Confidence (98.4%)</p>
+                </div>
+
+                <div class="spec-breakdown">
+                    <p class="label">SPEC BREAKDOWN</p>
+                    <div class="chips" id="spec-chips">
+                        <span class="chip">Select specs to view</span>
+                    </div>
+                </div>
+
+                <div class="hardware-analysis">
+                    <div class="analysis-overlay">
+                        <h3>Hardware Analysis</h3>
+                        <p>Real-time benchmarking against global markets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="trends">
+        <h2>How it Works</h2>
+        <p class="features-sub">The architecture behind our high-performance prediction engine.</p>
+        
+        <div class="feature-cards">
+            <div class="card">
+                <div class="card-icon"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></div>
+                <h3>Data Ingestion</h3>
+                <p>Real-time scraping of global marketplaces, historical price points, and upcoming hardware release schedules.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon purple"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></div>
+                <h3>AI Analysis</h3>
+                <p>Proprietary deep learning models analyze architectural shifts, brand loyalty metrics, and supply chain volatility.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon orange"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+                <h3>Precision Prediction</h3>
+                <p>Receive granular valuation reports and 12-month trajectory forecasts for any consumer laptop model.</p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <svg width="40" height="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2" viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 18"></path><path d="M17 6h6v6"></path></svg>
+                <div class="stat-value">99.4%</div>
+                <div class="stat-label">Prediction Accuracy</div>
+                <p>Verified against 10M+ transaction records.</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">2.4M</div>
+                <div class="stat-label">Models Analyzed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value orange-text">< 50ms</div>
+                <div class="stat-label">Latency Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Footer CTA -->
+    <section class="cta-section">
+        <h2>Ready to secure the best price?</h2>
+        <a href="#predict" class="btn-outline cta-btn">Access Prediction Engine</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">
+            <div class="logo">Price AI</div>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Twitter</a>
+            <a href="#">Github</a>
+        </div>
+        <div class="footer-right">
+            <p>&copy; 2024 Price AI. Precision Data Science.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

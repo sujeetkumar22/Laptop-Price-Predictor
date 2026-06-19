@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.ipynb
+*.csv
+.idea/
+scraper.py
+code*.ipynb
